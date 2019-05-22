@@ -1,6 +1,10 @@
 # all-in-one-shell
 A easily referencable script to help accelerate script building for those whom veer on the side of the easily forgetful on the small things.
 
+### Source Script
+To view the source script which should provide all of the below code all in one executable program
+
+Check out here - [\*/master/*__all-in-one-shell.sh__*](https://github.com/ProRansum/all-in-one-shell/blob/master/all-in-one-shell.sh)
 
 ## SAMPLE SCRIPT
 ``` shell

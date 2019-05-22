@@ -1,7 +1,7 @@
 #!/bin/bash
 # ^ This piece defines that this current file is to use the bash.exe compiler stored in /bin/bash.exe* directory
 
-### Ignore this Section ##### 
+### Ignore this Section #####
 echo -e "\033[0m";
 echo -e ")++++++++++++[+] \033[1;33mSample All in One Shell Script\033[0m [+]++++++++++++(";
 echo -e ")+++++++++++++++++[+] \033[0;37mMade by:\033[0m \033[0;31mKevin Haas\033[0m [+]++++++++++++++++++( ";
@@ -22,17 +22,17 @@ echo "Oh... he's $AGE years old?? *GASP*"
 echo "That's 1/$((100 / AGE)) a human life to 100 years old!";
 
 echo "";
-### END OF SAMPLE 
+### END OF SAMPLE
 
 # \
-#  EASY 
+#  EASY
 # /
 
-### COMMENTS 
-# These are disregarded by the compiler, typically used to annotate your programs 
+### COMMENTS
+# These are disregarded by the compiler, typically used to annotate your programs
 
-### STORING VARIABLES 
-# > STRING 
+### STORING VARIABLES
+# > STRING
 INT_0=2147483647;
 INT_1=1000;
 INT_2=23;
@@ -42,27 +42,27 @@ STR="This is a String!";
 FIRSTNAME="John";
 LASTNAME="Doe";
 
-# > DOUBLE\DECIMAL 
+# > DOUBLE\DECIMAL
 PI=3.14159265358979323;
 
 ### USING STORED VARIABLES
-# STRING 
-echo ""; # Padding for Output Readability 
+# STRING
+echo ""; # Padding for Output Readability
 echo "# STRING SAMPLE";
 echo "My name is $FIRSTNAME $LASTNAME.";
 
-# INTEGERS 
-echo ""; # Padding for Output Readability 
+# INTEGERS
+echo ""; # Padding for Output Readability
 echo "# INTEGERS SAMPLE";
 echo "Hey look a number! $INT_0."
 echo "$INT_1 / $INT_2 = " $((INT_1 / INT_2));
 
-# DOUBLE\DECIMAL 
-echo ""; # Padding for Output Readability 
+# DOUBLE\DECIMAL
+echo ""; # Padding for Output Readability
 echo "# DOUBLE\DECIMAL SAMPLE";
 echo "Hey look! Pi... $PI.";
 
-# SHELL EXECUTIONS 
+# SHELL EXECUTIONS
 echo ""
 WORKING_DIRECTORY=$(pwd);
 echo "We just ran 'pwd' and you didn't see it! Look: Working Directory is '${WORKING_DIRECTORY}'.";
@@ -71,10 +71,10 @@ echo "   ...this: $(pwd)";
 echo "   ...this: `pwd`";
 
 # \
-#  SOME HARDER STUFF 
+#  SOME HARDER STUFF
 # /
 
-### CONDITIONAL STATEMENTS 
+### CONDITIONAL STATEMENTS
 echo "";
 echo "# CONDITIONAL EXECUTIONS ";
 
@@ -83,7 +83,7 @@ echo "# AND STATEMENTS";
 echo "AND statements run BOTH, this one and " && echo "this one as well!";
 ## Though if one fails neither will execute...
 
-# OR STATEMENTS 
+# OR STATEMENTS
 echo "";
 echo "# OR STATEMENTS";
 cat samples || echo "We failed to 'cat' a file 'samples', so we output this message!";
