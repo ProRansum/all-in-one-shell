@@ -452,7 +452,7 @@ sounds[wolf]="howl"
 
 > Declares sound as a Dictionary object... i.e. associative array.
 
-### _Working with dictionaries
+### _Working with dictionaries_
 ``` shell 
 echo ${sounds[dog]} # Dog's sound
 echo ${sounds[@]}   # All values
@@ -464,7 +464,7 @@ unset sounds[dog]   # Delete dog
 sample_output
 ```
 
-### _Iteration
+### _Iteration_
 ``` shell
 # Iterate over values
 for val in "${sounds[@]}"; do
