@@ -189,20 +189,21 @@ ${FOO:?message}	Show error message and exit if $FOO is not set
 > The : is optional (eg, ${FOO=word} works)
 
 ## Loops
-<h4><a href="#" style="color:red; ">Basic for loop</a></h4>
+#### _Basic for loop_
+
 ``` shell
 for i in /etc/rc.*; do
   echo $i
 done
 ```
 
-<h4><a href="#" style="color:red; ">C-like FOR Loop</a></h4>
+#### _C-like FOR Loop_
 ``` shell
 for ((i = 0 ; i < 100 ; i++)); do
   echo $i
 done
 ```
-<h4><a href="#" style="color:red; ">Number Ranges</a></h4>
+#### _Number Ranges_
 ``` shell
 for i in {1..5}; do
     echo "Welcome $i"
@@ -216,40 +217,40 @@ Welcome 4
 Welcome 5
 ```
 
-<h4><a href="#" style="color:red; ">With step size</a></h4>
+#### _With step size_
 ``` shell
 for i in {5..50..5}; do
     echo "Welcome $i"
 done
 ```
-<h4><a href="#" style="color:red; ">Reading lines</a></h4>
+#### _Reading lines_
 ``` shell
 < file.txt | while read line; do
   echo $line
 done
 ```
-<h4><a href="#" style="color:red; ">Infinite Loop</a></h4>
+#### _Infinite Loop_
 ``` shell
 while true; do
 done
 ```
 
 ## Functions
-<h4><a href="#" style="color:red; ">Defining a Function</a></h4>
+#### _Defining a Function_
 ``` shell
 myfunc() {
     echo "hello $1"
 }
 ```
 # Same as above (alternate syntax)
-<h4><a href="#" style="color:red; ">Same as Above</a></h4>
+#### _Same as Above_
 ``` shell
 function myfunc() {
     echo "hello $1"
 }
 myfunc "John"
 ```
-<h4><a href="#" style="color:red; ">Returning values</a></h4>
+#### _Returning values_
 ``` shell
 myfunc() {
     local myresult='some value'
@@ -258,7 +259,7 @@ myfunc() {
 result="$(myfunc)"
 ```
 
-<h4><a href="#" style="color:red; ">Raising errors</a></h4>
+#### _Raising errors_
 ``` shell
 myfunc() {
   return 1
