@@ -98,6 +98,7 @@ elif [[ -n "$string" ]]; then
   echo "String is not empty"
 fi
 ```
+
 ## Strict mode
 ``` shell
 set -euo pipefail
@@ -111,55 +112,58 @@ echo {A,B}.js
 {A,B}.js	Same as A.js B.js
 {1..5}	Same as 1 2 3 4 5
 ```
+
 # Parameter expansions
-## Basics
+
+## _Basics_
+
 ``` shell
 name="John"
 echo ${name}
-echo ${name/J/j}    #=> "john" (substitution)
-echo ${name:0:2}    #=> "Jo" (slicing)
-echo ${name::2}     #=> "Jo" (slicing)
-echo ${name::-1}    #=> "Joh" (slicing)
-echo ${name:(-1)}   #=> "n" (slicing from right)
-echo ${name:(-2):1} #=> "h" (slicing from right)
-echo ${food:-Cake}  #=> $food or "Cake"
+echo ${name/J/j}      #=> "john" (substitution)
+echo ${name:0:2}      #=> "Jo" (slicing)
+echo ${name::2}       #=> "Jo" (slicing)
+echo ${name::-1}      #=> "Joh" (slicing)
+echo ${name:(-1)}     #=> "n" (slicing from right)
+echo ${name:(-2):1}   #=> "h" (slicing from right)
+echo ${food:-Cake}    #=> $food or "Cake"
 length=2
-echo ${name:0:length}  #=> "Jo"
+echo ${name:0:length} #=> "Jo"
 
 STR="/path/to/foo.cpp"
-echo ${STR%.cpp}    # /path/to/foo
-echo ${STR%.cpp}.o  # /path/to/foo.o
+echo ${STR%.cpp}      # /path/to/foo
+echo ${STR%.cpp}.o    # /path/to/foo.o
 
-echo ${STR##*.}     # cpp (extension)
-echo ${STR##*/}     # foo.cpp (basepath)
+echo ${STR##*.}       # cpp (extension)
+echo ${STR##*/}       # foo.cpp (basepath)
 
-echo ${STR#*/}      # path/to/foo.cpp
-echo ${STR##*/}     # foo.cpp
+echo ${STR#*/}        # path/to/foo.cpp
+echo ${STR##*/}       # foo.cpp
 
-echo ${STR/foo/bar} # /path/to/bar.cpp
+echo ${STR/foo/bar}   # /path/to/bar.cpp
+
 STR="Hello world"
-echo ${STR:6:5}   # "world"
-echo ${STR:-5:5}  # "world"
+echo ${STR:6:5}       # "world"
+echo ${STR:-5:5}      # "world"
+
 SRC="/path/to/foo.cpp"
-BASE=${SRC##*/}   #=> "foo.cpp" (basepath)
-DIR=${SRC%$BASE}  #=> "/path/to/" (dirpath)
+BASE=${SRC##*/}       #=> "foo.cpp" (basepath)
+DIR=${SRC%$BASE}      #=> "/path/to/" (dirpath)
 ```
 
-## Substitution
-```
-${FOO%suffix}	Remove suffix
-${FOO#prefix}	Remove prefix
-${FOO%%suffix}	Remove long suffix
-${FOO##prefix}	Remove long prefix
-${FOO/from/to}	Replace first match
-${FOO//from/to}	Replace all
-${FOO/%from/to}	Replace suffix
-${FOO/#from/to}	Replace prefix
-```
+## _Substitution_
+- `${FOO%suffix}`   - Remove suffix
+- `${FOO#prefix}`   - Remove prefix
+- `${FOO%%suffix}`  - Remove long suffix
+- `${FOO##prefix}`  - Remove long prefix
+- `${FOO/from/to}`  - Replace first match
+- `${FOO//from/to}` - Replace all
+- `${FOO/%from/to}` - Replace suffix
+- `${FOO/#from/to}` - Replace prefix
 
 ## Comments
+``` shell
 # Single line comment
-```
 : '
 This is a
 multi line
@@ -186,15 +190,19 @@ ${FOO:+val}	val if $FOO is set
 ${FOO:?message}	Show error message and exit if $FOO is not set
 ```
 
-> The : is optional (eg, ${FOO=word} works)
+> The `:` is optional, i.e. `${FOO=word}` works as well!
 
 ## Loops
+
 #### _Basic for loop_
 
 ``` shell
 for i in /etc/rc.*; do
   echo $i
 done
+```
+```
+sample_output
 ```
 
 #### _C-like FOR Loop_
@@ -203,6 +211,10 @@ for ((i = 0 ; i < 100 ; i++)); do
   echo $i
 done
 ```
+```
+sample_output
+```
+
 #### _Number Ranges_
 ``` shell
 for i in {1..5}; do
@@ -223,26 +235,43 @@ for i in {5..50..5}; do
     echo "Welcome $i"
 done
 ```
+```
+sample_output
+```
+
 #### _Reading lines_
 ``` shell
 < file.txt | while read line; do
   echo $line
 done
 ```
+```
+sample_output
+```
+
 #### _Infinite Loop_
 ``` shell
 while true; do
 done
 ```
+```
+sample_output
+```
 
 ## Functions
+
 #### _Defining a Function_
 ``` shell
 myfunc() {
     echo "hello $1"
 }
 ```
+```
+sample_output
+```
+
 # Same as above (alternate syntax)
+
 #### _Same as Above_
 ``` shell
 function myfunc() {
@@ -250,6 +279,11 @@ function myfunc() {
 }
 myfunc "John"
 ```
+```
+sample_output
+```
+
+
 #### _Returning values_
 ``` shell
 myfunc() {
@@ -257,6 +291,9 @@ myfunc() {
     echo $myresult
 }
 result="$(myfunc)"
+```
+```
+sample_output
 ```
 
 #### _Raising errors_
@@ -270,14 +307,18 @@ else
   echo "failure"
 fi
 ```
+```
+sample_output
+```
 
 Arguments
-- $#  Number of arguments
-- $*	All arguments
-- $@	All arguments, starting from first
-- $1	First argument
+- `$#` - Number of arguments
+- `$*` - All arguments
+- `$@` - All arguments, starting from first
+- `$1` - First argument
 
 ## Conditionals
+
 ### Regular Conditions
 
 > Note that [[ is actually a command/program that returns either 0 (true) or 1 (false). <br />
@@ -356,19 +397,30 @@ fi
 ```
 
 ## Arrays
-Defining arrays
+
+### _Defining Arrays_
+``` shell
 Fruits=('Apple' 'Banana' 'Orange')
 Fruits[0]="Apple"
 Fruits[1]="Banana"
 Fruits[2]="Orange"
-Working with arrays
+```
+
+### _Working with Arrays_
+``` shell 
 echo ${Fruits[0]}           # Element #0
 echo ${Fruits[@]}           # All elements, space-separated
 echo ${#Fruits[@]}          # Number of elements
 echo ${#Fruits}             # String length of the 1st element
 echo ${#Fruits[3]}          # String length of the Nth element
 echo ${Fruits[@]:3:2}       # Range (from position 3, length 2)
-Operations
+```
+```
+sample_output
+```
+
+### _Operations_
+``` shell
 Fruits=("${Fruits[@]}" "Watermelon")    # Push
 Fruits+=('Watermelon')                  # Also Push
 Fruits=( ${Fruits[@]/Ap*/} )            # Remove by regex match
@@ -376,80 +428,119 @@ unset Fruits[2]                         # Remove one item
 Fruits=("${Fruits[@]}")                 # Duplicate
 Fruits=("${Fruits[@]}" "${Veggies[@]}") # Concatenate
 lines=(`cat "logfile"`)                 # Read from file
-Iteration
+```
+### _Iteration_
+``` shell
 for i in "${arrayName[@]}"; do
-  echo $i
+	echo $i
 done
-#Dictionaries
-Defining
+```
+```
+sample_output
+```
+
+## Dictionaries
+
+### _Defining_
+``` shell 
 declare -A sounds
 sounds[dog]="bark"
 sounds[cow]="moo"
 sounds[bird]="tweet"
 sounds[wolf]="howl"
-Declares sound as a Dictionary object (aka associative array).
+```
 
-Working with dictionaries
+> Declares sound as a Dictionary object... i.e. associative array.
+
+### _Working with dictionaries
+``` shell 
 echo ${sounds[dog]} # Dog's sound
 echo ${sounds[@]}   # All values
 echo ${!sounds[@]}  # All keys
 echo ${#sounds[@]}  # Number of elements
 unset sounds[dog]   # Delete dog
-Iteration
-Iterate over values
+```
+```
+sample_output
+```
+
+### _Iteration
+``` shell
+# Iterate over values
 for val in "${sounds[@]}"; do
   echo $val
 done
-Iterate over keys
+
+# Iterate over keys
 for key in "${!sounds[@]}"; do
   echo $key
 done
-#Options
-Options
+```
+```
+sample_output
+```
+
+## Options
+### _Options_
+``` shell 
 set -o noclobber  # Avoid overlay files (echo "hi" > foo)
 set -o errexit    # Used to exit upon error, avoiding cascading errors
 set -o pipefail   # Unveils hidden failures
 set -o nounset    # Exposes unset variables
-Glob options
+```
+
+### _Global Options_
+``` shell
 set -o nullglob    # Non-matching globs are removed  ('*.foo' => '')
 set -o failglob    # Non-matching globs throw errors
 set -o nocaseglob  # Case insensitive globs
 set -o globdots    # Wildcards match dotfiles ("*.sh" => ".foo.sh")
 set -o globstar    # Allow ** for recursive matches ('lib/**/*.rb' => 'lib/a/b/c.rb')
-Set GLOBIGNORE as a colon-separated list of patterns to be removed from glob matches.
+```
 
-#History
-Commands
-history	Show history
-shopt -s histverify	Don’t execute expanded result immediately
-Expansions
-!$	Expand last parameter of most recent command
-!*	Expand all parameters of most recent command
-!-n	Expand nth most recent command
-!n	Expand nth command in history
-!<command>	Expand most recent invocation of command <command>
-Operations
-!!	Execute last command again
-!!:s/<FROM>/<TO>/	Replace first occurrence of <FROM> to <TO> in most recent command
-!!:gs/<FROM>/<TO>/	Replace all occurrences of <FROM> to <TO> in most recent command
-!$:t	Expand only basename from last parameter of most recent command
-!$:h	Expand only directory from last parameter of most recent command
-!! and !$ can be replaced with any valid expansion.
+> Set `GLOBIGNORE` as a colon-separated list of patterns to be removed from glob matches.
 
-Slices
-!!:n	Expand only nth token from most recent command (command is 0; first argument is 1)
-!^	Expand first argument from most recent command
-!$	Expand last token from most recent command
-!!:n-m	Expand range of tokens from most recent command
-!!:n-$	Expand nth token to last from most recent command
-!! can be replaced with any valid expansion i.e. !cat, !-2, !42, etc.
+## History
 
-#Miscellaneous
-Numeric calculations
+### _Commands_
+- `history` - Show history
+- `shopt -s histverify` - Don’t execute expanded result immediately
+
+
+### _Expansions_
+- `!$`  - Expand last parameter of most recent command
+- `!*`  - Expand all parameters of most recent command
+- `!-n` - Expand nth most recent command
+- `!n`  - Expand nth command in history
+- `!<command>` - Expand most recent invocation of command <command>
+
+### _Operations_
+- `!!`   - Execute last command again
+- `!!:s/<FROM>/<TO>/` - Replace first occurrence of <FROM> to <TO> in most recent command
+- `!!:gs/<FROM>/<TO>/` - Replace all occurrences of <FROM> to <TO> in most recent command
+- `!$:t` - Expand only basename from last parameter of most recent command
+- `!$:h` - Expand only directory from last parameter of most recent command
+- `!!`   - and !$ can be replaced with any valid expansion.
+
+### _Slices_
+- `!!:n` - Expand only nth token from most recent command (command is 0; first argument is 1)
+- `!^` - Expand first argument from most recent command
+- `!$` - Expand last token from most recent command
+- `!!:n-m` - Expand range of tokens from most recent command
+- `!!:n-$` - Expand nth token to last from most recent command
+- `!!` - can be replaced with any valid expansion i.e. !cat, !-2, !42, etc.
+
+## Miscellaneous
+
+### _Numeric Calculations_
+``` shell 
 $((a + 200))      # Add 200 to $a
 $((RANDOM%=200))  # Random number 0..200
-Subshells
+```
+
+### _Sub-shells_
 (cd somedir; echo "I'm now in $PWD")
+``` shell 
 pwd # still in first directory
 Redirection
 python hello.py > output.txt   # stdout to (file)
@@ -459,13 +550,21 @@ python hello.py 2>&1           # stderr to stdout
 python hello.py 2>/dev/null    # stderr to (null)
 python hello.py &>/dev/null    # stdout and stderr to (null)
 python hello.py < foo.txt      # feed foo.txt to stdin for python
-Inspecting commands
-command -V cd
-#=> "cd is a function/alias/whatever"
-Trap errors
-trap 'echo Error at about $LINENO' ERR
-or
+```
 
+### _Inspecting Commands_
+``` shell
+command -V cd #=> "cd is a function/alias/whatever"
+```
+
+### _Catch Errors_
+``` shell 
+trap 'echo Error at about $LINENO' ERR
+```
+
+> or
+
+``` shell 
 traperr() {
   echo "ERROR: ${BASH_SOURCE[1]} at about ${BASH_LINENO[0]}"
 }
@@ -482,14 +581,28 @@ case "$1" in
     echo "Usage: $0 {start|stop|ssh}"
     ;;
 esac
-Source relative
+```
+
+### _Source Relative_
+``` shell 
 source "${0%/*}/../share/foo.sh"
-printf
-printf "Hello %s, I'm %s" Sven Olga
-#=> "Hello Sven, I'm Olga
-Directory of script
+```
+
+### _printf_
+``` shell 
+printf "Hello %s, I'm %s" Sven Olga 
+```
+```
+Hello Sven, I'm Olga
+```
+
+### _Directory of Script_
+``` shell 
 DIR="${0%/*}"
-Getting options
+```
+
+### _Getting Options_
+``` shell 
 while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
   -V | --version )
     echo $version
@@ -503,24 +616,32 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
     ;;
 esac; shift; done
 if [[ "$1" == '--' ]]; then shift; fi
-Heredoc
+```
+
+### _Heredoc_
+``` shell 
 cat <<END
 hello world
 END
-Reading input
+```
+
+### _Reading Input_
+``` shell
 echo -n "Proceed? [y/n]: "
 read ans
 echo $ans
 read -n 1 ans    # Just one character
-Special variables
-$?	Exit status of last task
-$!	PID of last background task
-$$	PID of shell
-See Special parameters.
+```
+### _Special Variables_
+- `$?` - Exit status of last task
+- `$!` - PID of last background task
+- `$$` - PID of shell
 
-Go to previous directory
+### _Move to Previous Directory_
+``` shell
 pwd # /home/user/foo
 cd bar/
 pwd # /home/user/foo/bar
 cd -
 pwd # /home/user/foo
+```
